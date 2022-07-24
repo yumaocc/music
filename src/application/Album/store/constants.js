@@ -1,0 +1,4 @@
+export const CHANGE_CURRENT_ALBUM = 'album/CHANGE_CURRENT_ALBUM';
+export const CHANGE_ENTER_LOADING = 'album/CHANGE_ENTER_LOADING';
+export const ADD_SONG_PLAY_LIST = 'album/ADD_SONG_PLAY_LIST'
+export const DELETE_LIST = 'album/DELETE_LIST'

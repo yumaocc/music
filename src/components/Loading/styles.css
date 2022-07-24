@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+  }
+  
+  .App {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 100px);
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-top: 100px;
+    align-content: center;
+    padding: 20px;
+  }
+  
+  .test {
+    width: 100px;
+    height: 100px;
+    background: blueviolet;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 8px 10px;
+    color: #fff;
+  }
+  .mybtn {
+      border-radius: 5px;
+      margin-top: 3px;
+    }
+    .spring {
+      height: 20px;
+      margin: 5px 0;
+    }
