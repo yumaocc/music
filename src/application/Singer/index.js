@@ -59,7 +59,6 @@ function Singer() {
                 handleClick={handleClick}
             ></Header>
             <Content>
-                <Scroll>
                     <div>
                         <Bg background={picUrl}>
                             <div className='btn'>
@@ -71,7 +70,7 @@ function Singer() {
                             <ListHeader>
                                 <PlayCircleOutlined className='icon' onClick={playAllMusic} />
                                 <h1>播放全部</h1>
-                                <div>{`(共${hotSongs.length - 1}首)`}</div>
+                                <div>{`(共${hotSongs.length}首)`}</div>
                             </ListHeader>
                             <List
                                 tracks={hotSongs}
@@ -81,7 +80,6 @@ function Singer() {
                             />
                         </ListStyle>
                     </div>
-                </Scroll>
                 {show && <motion.div style={{
                     position: 'absolute',
                     top: 400

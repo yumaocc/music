@@ -7,14 +7,14 @@ export const NavContainer  = styled.div`
   top: 95px;
   width: 100%;
   padding: 5px;
-  overflow: hidden;
+  overflow: scroll;
 `;
 export const ListContainer = styled.div`
   position: fixed;
   top: 160px;
   left: 0;
   bottom: 0;
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
 `;
 
@@ -22,7 +22,7 @@ export const List = styled.div`
   display: flex;
   margin: auto;
   flex-direction: column;
-  overflow: hidden;
+  /* overflow: hidden; */
   .title {
     margin:10px 0 10px 10px;
     color: ${style ["font-color-desc"]};

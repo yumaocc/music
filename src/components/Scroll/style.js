@@ -1,6 +1,6 @@
 import React, { forwardRef, useState,useEffect, useRef, useImperativeHandle, useMemo } from "react"
 import PropTypes from "prop-types"
-import BScroll from "@better-scroll/core"
+import BScroll from "better-scroll"
 import styled from 'styled-components';
 
 
@@ -85,11 +85,11 @@ const Scroll = forwardRef((props, ref) => {
   const { pullUp, pullDown, onScroll } = props;
 
   let pullUpDebounce = useMemo(() => {
-    return 
+    return debounce(pullUp, 500)
   }, [pullUp]);
 
   let pullDownDebounce = useMemo(() => {
-    return 
+    return debounce(pullDown, 500)
   }, [pullDown]);
 
   useEffect(() => {
@@ -172,6 +172,9 @@ const Scroll = forwardRef((props, ref) => {
     <ScrollContainer ref={scrollContaninerRef}>
       {props.children}
       {/* 滑到底部加载动画 */}
+      <PullUpLoading style={ PullUpdisplayStyle }><Loading></Loading></PullUpLoading>
+      {/* 顶部下拉刷新动画 */}
+      <PullDownLoading style={ PullDowndisplayStyle }><Loading2></Loading2></PullDownLoading>
     </ScrollContainer>
   );
 })

@@ -74,14 +74,12 @@ export default function Rank() {
       {
         loading ? <Loading2 /> :
           <Container>
-            <Scroll>
               <div>
                 <h1 className="offical" style={displayStyle}> 官方榜 </h1>
                 {RenderRankList(officialList)}
                 <h1 className="global" style={displayStyle}> 全球榜 </h1>
                 {RenderRankList(globalList, true)}
               </div>
-            </Scroll>
             <Outlet />
           </Container>
       }

@@ -9,7 +9,7 @@ export const Container = styled.div`
   bottom: 0;
   z-index: 1000;
   background: #fff;
-  overflow: hidden;
+  overflow: scroll;
   height: 93vh;
 `;
 

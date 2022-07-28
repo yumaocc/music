@@ -1,8 +1,7 @@
 import { GlobalStyle } from './style';
 import IconStyle from './assets/iconfont/iconfont'
-import { useRoutes, Routes, Route, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import routes from './routes';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import Recommend from './application/Recommend';
 import Home from './application/Home';
 import Album from './application/Album';
@@ -12,7 +11,6 @@ import Rank from './application/Rank';
 import Search from './application/Search';
 function App() {
   const location = useLocation()
-  const elementRoute = useRoutes(routes)
   return (
     <div className="App">
       <GlobalStyle></GlobalStyle>
@@ -21,6 +19,7 @@ function App() {
       {/* location={location} key={location.pathname} */}
         <Routes >
           <Route path='/' element={<Home />}>
+          <Route path='/' element={<Navigate to='/recommend'/>}></Route>
             <Route path='/recommend' element={<Recommend />}></Route>
             <Route path='/recommend/album/:id' element={<Album />}></Route>
             <Route path='/singers' element={<Singers />}></Route>
@@ -28,6 +27,7 @@ function App() {
             <Route path='/rank' element={<Rank />}></Route>
             <Route path='/search' element={<Search />}></Route>
           </Route>
+          
         </Routes>
       </AnimatePresence>
     </div>

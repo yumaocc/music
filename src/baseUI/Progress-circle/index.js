@@ -23,7 +23,7 @@ function ProgressCircle(props) {
   // 整个背景的周长
   const dashArray = Math.PI * 100;
   // 没有高亮的部分，剩下高亮的就是进度
-  const dashOffset = (0.1 - currentTime) * dashArray;
+  const dashOffset = 1
 
   return (
     <CircleWrapper>

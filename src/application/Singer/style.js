@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import style from '../../assets/global-style';
 
 export const Container = styled.div`
     width: 100vw;
@@ -37,7 +36,7 @@ export const Bg = styled.div`
 `
 export const Content = styled.div`
     height: 843px;
-    overflow: hidden;
+    overflow: scroll;
 `
 export const ListStyle = styled.div`
     width: 100vw;

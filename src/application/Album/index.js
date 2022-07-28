@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Container, TopDesc, Menu, SongList, SongItem } from './style'
 import Header from '../../baseUI/Header'
 import { useNavigate } from 'react-router-dom'
 import { getName, getCount } from '../../api/utils'
-import Scroll from '../../components/Scroll'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAlbum, changeEnterLoading } from './store/actionCreators'
 import Loading2 from '../../components/Loading2/index'
-import { changePlayList,changeCurrentSong, changeCurrentIndex} from '../Player/store/actionCreator'
+import { changePlayList, changeCurrentSong, changeCurrentIndex } from '../Player/store/actionCreator'
 import List from '../../components/List'
 import { CustomerServiceOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 
 export default function Album() {
-   const {id}= useParams()
+    const { id } = useParams()
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -33,17 +32,21 @@ export default function Album() {
     const handleBack = () => {
         navigate('/recommend')
     };//返回首页
+    const allPlaySon = () => {
+        dispatch(changePlayList(tracks))
+        dispatch(changeCurrentSong(tracks[0]))
+        dispatch(changeCurrentIndex(0))
+    }
     return (
-        <motion.div 
-        initial={{opacity:0}}
-        animate={{opacity:1}}
-        exit={{opacity:0,x:100}}>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, x: 100 }}>
             {enterLoading ?
-            <Loading2 /> 
-            :
-            <Container>
-                <Header title='返回' handleClick={handleBack} background={coverImgUrl} />
-                <Scroll >
+                <Loading2 />
+                :
+                <Container>
+                    <Header title='返回' handleClick={handleBack} background={coverImgUrl} />
                     <div>
                         <TopDesc background={coverImgUrl}>
                             <div className="background">
@@ -105,7 +108,7 @@ export default function Album() {
                                             color: '#f5222d'
                                         }} />
                                     </motion.div>}
-                                    <span > 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
+                                    <span onClick={allPlaySon}> 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
                                 </div>
                                 <div className="add_list">
                                     <i className="iconfont">&#xe62d;</i>
@@ -124,8 +127,7 @@ export default function Album() {
                             </SongItem>
                         </SongList>
                     </div>
-                </Scroll>
-            </Container>}
+                </Container>}
         </motion.div>
     )
 }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Slider from '../../components/Slider'
 import RecommendList from '../../components/RecommendList'
-import Scroll from '../../components/Scroll'
 import { Content } from './style'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBannerList, getRecommendList } from './store/actionCreators'
@@ -23,21 +22,15 @@ export default function Recommend() {
     const recommendList = recommend.getIn(['recommend']).toJS()
     const enterLoading = recommend.get('enterLoading')
     return (
-        
-            <motion.div 
-            initial={{opacity:0}}
-            animate={{opacity:1}}
-            exit={{opacity:0}}>
-                <Content className='111'>
-                    <Scroll className="list" >
-                        <div>
-                            <Slider bannerList={bannerList}></Slider>
-                            <RecommendList recommendList={recommendList}></RecommendList>
-                        </div>
-                        {enterLoading && <Loading2 />}
-                    </Scroll>
-                </Content>
-            </motion.div>
-       
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            <Content >
+                <Slider bannerList={bannerList}></Slider>
+                <RecommendList recommendList={recommendList}></RecommendList>
+                {enterLoading && <Loading2 />}
+            </Content>
+        </motion.div>
     )
 }
