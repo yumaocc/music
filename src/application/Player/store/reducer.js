@@ -10,7 +10,7 @@ import {
     DELETE_PLAY_LIST_SONG,
 } from './actionTypes'
 import { fromJS } from 'immutable';
-
+import defaultImage from '../img/music.png'
 const initState = fromJS({
     fullScreen: false,// 播放器是否为全屏模式
     playing: false, // 当前歌曲是否播放
@@ -26,7 +26,7 @@ const initState = fromJS({
             rt: '',
             cf: '',
             alia: [
-                '手游《梦幻花园》苏州园林版推广曲'
+                '未添加歌曲'
             ],
             rtUrls: [],
             fee: 0,
@@ -41,13 +41,13 @@ const initState = fromJS({
             mv: 0,
             al: {
                 id: 2342324,
-                name: '拾梦纪',
-                picUrl: 'http://p1.music.126.net/M19SOoRMkcHmJvmGflXjXQ==/109951164627180052.jpg',
+                name: '暂无歌曲',
+                picUrl: defaultImage,
                 tns: [],
                 pic_str: '109951164627180052',
                 pic: 109951164627180050
             },
-            name: '拾梦纪',
+            name: '暂无歌曲',
             l: {
                 br: 128000,
                 fid: 0,
@@ -69,13 +69,13 @@ const initState = fromJS({
             ar: [
                 {
                     id: 12084589,
-                    name: '妖扬',
+                    name: '无',
                     tns: [],
                     alias: []
                 },
                 {
                     id: 12578371,
-                    name: '金天',
+                    name: '无',
                     tns: [],
                     alias: []
                 }
@@ -84,7 +84,7 @@ const initState = fromJS({
             pst: 0,
             t: 0,
             v: 3,
-            id: 1416767593,
+            id: 0,
             publishTime: 0,
             rurl: null
         }
@@ -101,7 +101,7 @@ const initState = fromJS({
             rt: '',
             cf: '',
             alia: [
-                '手游《梦幻花园》苏州园林版推广曲'
+                '未添加歌曲'
             ],
             rtUrls: [],
             fee: 0,
@@ -116,13 +116,13 @@ const initState = fromJS({
             mv: 0,
             al: {
                 id: 2342324,
-                name: '拾梦纪',
-                picUrl: 'http://p1.music.126.net/M19SOoRMkcHmJvmGflXjXQ==/109951164627180052.jpg',
+                name: '暂无歌曲',
+                picUrl: defaultImage,
                 tns: [],
                 pic_str: '109951164627180052',
                 pic: 109951164627180050
             },
-            name: '拾梦纪',
+            name: '暂无歌曲',
             l: {
                 br: 128000,
                 fid: 0,
@@ -144,13 +144,13 @@ const initState = fromJS({
             ar: [
                 {
                     id: 12084589,
-                    name: '妖扬',
+                    name: '无',
                     tns: [],
                     alias: []
                 },
                 {
                     id: 12578371,
-                    name: '金天',
+                    name: '无',
                     tns: [],
                     alias: []
                 }
@@ -159,7 +159,7 @@ const initState = fromJS({
             pst: 0,
             t: 0,
             v: 3,
-            id: 1416767593,
+            id: 0,
             publishTime: 0,
             rurl: null
         }
@@ -167,7 +167,7 @@ const initState = fromJS({
     mode: 1,// 播放模式
     currentIndex: 0,// 当前歌曲在播放列表的索引位置
     showPlayList: false,// 是否展示播放列表
-    currentSong: {//当前歌曲
+    currentSong: {
         ftype: 0,
         djId: 0,
         a: null,
@@ -178,7 +178,7 @@ const initState = fromJS({
         rt: '',
         cf: '',
         alia: [
-            '手游《梦幻花园》苏州园林版推广曲'
+            '未添加歌曲'
         ],
         rtUrls: [],
         fee: 0,
@@ -193,13 +193,13 @@ const initState = fromJS({
         mv: 0,
         al: {
             id: 2342324,
-            name: '拾梦纪',
-            picUrl: 'http://p1.music.126.net/M19SOoRMkcHmJvmGflXjXQ==/109951164627180052.jpg',
+            name: '暂无歌曲',
+            picUrl: defaultImage,
             tns: [],
             pic_str: '109951164627180052',
             pic: 109951164627180050
         },
-        name: '拾梦纪',
+        name: '暂无歌曲',
         l: {
             br: 128000,
             fid: 0,
@@ -221,13 +221,13 @@ const initState = fromJS({
         ar: [
             {
                 id: 12084589,
-                name: '妖扬',
+                name: '无',
                 tns: [],
                 alias: []
             },
             {
                 id: 12578371,
-                name: '金天',
+                name: '无',
                 tns: [],
                 alias: []
             }
@@ -236,7 +236,7 @@ const initState = fromJS({
         pst: 0,
         t: 0,
         v: 3,
-        id: 1416767593,
+        id: 0,
         publishTime: 0,
         rurl: null
     }
