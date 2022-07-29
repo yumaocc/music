@@ -46,10 +46,10 @@ function PlayList(props) {
                             <ScrollWrapper>
                                 <AnimatePresence>
                                     {
-                                        playlist.map(item => {
+                                        playlist.map((item,index) => {
                                             return (
                                                 <motion.div
-                                                    key={item.id}
+                                                    key={item.id + index}
                                                     exit={{
                                                         x: -100
                                                     }}>

@@ -13,10 +13,9 @@ export default function index(props) {
         >
             <Container onClick={()=>setSuggestShow(false)}>
                 {
-                    suggest.map((item) => {
-                        return  <div className='item' onClick={() => {
+                    suggest.map((item,index) => {
+                        return  <div key={index} className='item' onClick={() => {
                             setValue(item.keyword)
-                            
                             searchClick()
                         }
                         }><div className='text'>{item.keyword}</div></div>

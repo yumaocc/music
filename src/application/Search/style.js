@@ -13,6 +13,10 @@ export const Header = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
     .back {
         font-size: 15px;
         margin: 10px 10px;

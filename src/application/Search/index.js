@@ -1,15 +1,19 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Container, Header, Hots, History, SearchList, HotsList, HistoryList } from './style'
+import { Container, Header, Hots, History, HotsList, HistoryList } from './style'
 import { useNavigate } from 'react-router-dom'
-import { changeSearch, changeHotSearch, changeDefault, changeSearchSuggest, changeSearchAction } from './store/actionCreators'
+import { changeSearch, changeHotSearch, changeDefault, changeSearchSuggest, changeSearchAction, changeSearchSuggestAction } from './store/actionCreators'
 import { useDispatch, useSelector } from 'react-redux'
 import { ClearOutlined } from '@ant-design/icons'
 import SearchLists from '../../components/SearchLists/index'
 import Suggest from './Suggest'
-import { changeCurrentSong, changePlayList, changeCurrentIndex } from '../Player/store/actionCreator'
+import { changeCurrentSong, changePlayList, changeCurrentIndex, changeFullScreen } from '../Player/store/actionCreator'
 import { Debounce } from '../../api/hooks'
+
+
+
 export default function Search() {
+
     const navigate = useNavigate()
     const searchRef = useRef()
     const [historySearch, setHistorySearch] = useState([])
@@ -17,6 +21,7 @@ export default function Search() {
     const dispatch = useDispatch()
     const [searchListShow, setSearchListShow] = useState(false)
     const [suggestShow, setSuggestShow] = useState(false)
+
     useEffect(() => {
         if (searchRef.current) {
             searchRef.current.focus()
@@ -25,6 +30,7 @@ export default function Search() {
         changeHotSearch(dispatch)
         setHistorySearch(JSON.parse(localStorage.getItem('historySearch')) || [])
     }, [])
+
     const { defaultSearch, hots, suggest, searchQuest = [] } = useSelector(state => {
         let s = state.search.toJS()
         return {
@@ -34,8 +40,6 @@ export default function Search() {
             searchQuest: s.searchQuest
         }
     })
-
-
 
     const searchClick = () => {
         if (value === '') {
@@ -48,6 +52,7 @@ export default function Search() {
         changeSearch(value, dispatch)
         setSearchListShow(!searchListShow)
         setSuggestShow(false) //关闭提示栏
+        dispatch(changeSearchSuggestAction([]))
     }//点击搜索按钮
 
     const clearHistory = () => {//清除历史搜索
@@ -61,7 +66,8 @@ export default function Search() {
         if (value !== '' && searchListShow === false) {
             setSuggestShow(true) //打开搜索提示
         } else if (value === '') {
-            setSuggestShow(false)//关闭搜索提示
+            setSuggestShow(false)
+            dispatch(changeSearchSuggestAction([]))
         }
     }, [value])
 
@@ -73,12 +79,9 @@ export default function Search() {
         setValue(e.target.value)
         debounceChange()
     }
+
     return (
-        <motion.div
-            exit={{
-                y: 300,
-                opacity: 0
-            }}>
+        <motion.div>
             <Container >
                 <AnimatePresence>
                     <motion.div
@@ -89,9 +92,12 @@ export default function Search() {
                         animate={{
                             x: 0,
                             opacity: 1
+                        }}
+                        transition={{
+                            duration: 0.3
                         }}>
                         <Header>
-                            <div className='back' onClick={() => navigate(-1)}>返回</div>
+                            <div className='back' onClick={() => navigate(-1)}><svg t="1659084604399" className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4616" width="200" height="200"><path d="M192.125 548.409L418.327 774.61a36.409 36.409 0 0 1-51.496 51.496L82.55 541.826a42.234 42.234 0 0 1 0-59.71l284.28-284.222a36.409 36.409 0 0 1 51.496 51.496L192.125 475.59H919.78a36.409 36.409 0 1 1 0 72.818H192.125z" p-id="4617"></path></svg></div>
                             <input
                                 ref={searchRef}
                                 className='input'
@@ -100,18 +106,22 @@ export default function Search() {
                                 placeholder={defaultSearch}
                                 value={value} />
                             <div className='btn' onClick={searchClick}>搜索</div>
-                            {suggestShow && <Suggest
+                            {suggest.length > 0 && suggestShow ? <Suggest
                                 setSuggestShow={setSuggestShow}
                                 suggest={suggest}
                                 setValue={setValue}
-                                searchClick={searchClick} />}
+                                searchClick={searchClick}
+                            /> : ''}
                         </Header>
                         {
-                            searchQuest.length > 0 ? <SearchLists
-                                tracks={searchQuest}
-                                changeCurrentIndex={changeCurrentIndex}
-                                changePlayList={changePlayList}
-                                changeCurrentSong={changeCurrentSong} /> :
+                            searchQuest.length > 0 ?
+                                <SearchLists
+                                    tracks={searchQuest}
+                                    changeCurrentIndex={changeCurrentIndex}
+                                    changePlayList={changePlayList}
+                                    changeCurrentSong={changeCurrentSong}
+                                    changeFullScreen={changeFullScreen}
+                                /> :
                                 <div>
                                     <History>
                                         <div className='historyBtn'>
@@ -148,7 +158,6 @@ export default function Search() {
                                     </Hots>
                                 </div>
                         }
-
                     </motion.div>
                 </AnimatePresence>
             </Container>

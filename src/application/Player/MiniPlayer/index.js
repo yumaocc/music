@@ -12,7 +12,7 @@ function MiniPlayer(props) {
     dispatch(changeFullScreen(true))
   }
   return (
-    <div>
+    <>
       <PlayList
         playListShow={playListShow}
         setPlayListSHow={setPlayListSHow}
@@ -20,8 +20,8 @@ function MiniPlayer(props) {
       />
       <MiniPlayerContainer >
         <div className="icon" onClick={handleClick}>
-          <div className={playing ? "imgWrapper play" : "imgWrapper paused"}>
-            <img className="play" src={song.al.picUrl} width="40" height="40" alt="img" />
+          <div className="imgWrapper">
+            <img className={playing ? "play" : 'paused'} src={song.al.picUrl} width="40" height="40" alt="img" />
           </div>
         </div>
         <div className="text">
@@ -38,8 +38,7 @@ function MiniPlayer(props) {
         <div className="control">
           <i className="iconfont" onClick={() => setPlayListSHow(true)}>&#xe640;</i>
         </div>
-      </MiniPlayerContainer>
-    </div>
+      </MiniPlayerContainer> </>
   )
 }
 

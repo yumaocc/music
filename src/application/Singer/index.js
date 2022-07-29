@@ -7,7 +7,7 @@ import List from '../../components/List';
 import { PlusOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { getSinger, getSingerLoading } from './store/actionCreators'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSequencePlayList, changePlayList } from '../Player/store/actionCreator'
+import { changeSequencePlayList, changePlayList ,changeCurrentSong ,changeCurrentIndex ,changeFullScreen} from '../Player/store/actionCreator'
 import { getName } from '../../api/utils'
 import { CustomerServiceOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
@@ -77,6 +77,9 @@ function Singer() {
                                 changePlayList={changePlayList}
                                 getName={getName}
                                 setShow={setShow}
+                                changeFullScreen={changeFullScreen}
+                                changeCurrentSong={changeCurrentSong}
+                                changeCurrentIndex={changeCurrentIndex}
                             />
                         </ListStyle>
                     </div>

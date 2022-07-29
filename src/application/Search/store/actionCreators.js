@@ -20,7 +20,7 @@ const changeDefaultAction = (data) => {
     data : fromJS(data)
   }
 }
-const changeSearchSuggestAction = (data) => {
+export  const changeSearchSuggestAction = (data) => {
   return {
     type:SEARCH_SUGGEST_REQUEST,
     data:fromJS(data)

@@ -85,14 +85,14 @@ export const Top = styled.div`
     line-height: 40px;
     text-align: center;
     font-size: ${style["font-size-l"]};
-    color: ${style["font-color-desc"]};
+    color: #ffffff;
     ${style.noWrap()};
   }
   .subtitle {
     line-height: 20px;
     text-align: center;
     font-size: ${style["font-size-m"]};
-    color: ${style["font-color-desc-v2"]};
+    color: #d9d9d9;
     ${style.noWrap()};
   }
 `;

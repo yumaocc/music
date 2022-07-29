@@ -14,7 +14,7 @@ export default function index(props) {
         zIndex: 9999,
         fontSize:20,
       }}
-      transition={{duration:0.8}}
+      transition={{duration:0.3}}
       animate={{
         y: -250
       }}

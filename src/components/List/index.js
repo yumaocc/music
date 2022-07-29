@@ -1,21 +1,21 @@
 import { SongItem } from './style'
 import { useDispatch } from 'react-redux'
-import React from 'react'
-
+import React, { useRef} from 'react'
 export default function List(props) {
     const dispatch = useDispatch()
-    const { tracks, changeCurrentSong, getName ,setShow ,changeCurrentIndex ,changePlayList} = props
+    const musicRef = useRef(null)
+    const { tracks, changeCurrentSong, getName ,changeCurrentIndex ,changePlayList ,changeFullScreen} = props
     return (
-        <SongItem>
+        <SongItem >
             {
                 tracks.map((item, index) => {
                     return (
-                        <li key={index} onClick={() => {
+                        <li 
+                            key={index} onClick={() => {
                             dispatch(changeCurrentSong(item))
                             dispatch(changeCurrentIndex(index))
                             dispatch(changePlayList(tracks))
-                            setShow(true)
-                            setTimeout(()=>setShow(false),1000)
+                            dispatch(changeFullScreen(true))
                         }}>
                             <span className="index">{index + 1}</span>
                             <div className="info">

@@ -164,7 +164,7 @@ const initState = fromJS({
             rurl: null
         }
     ],//播放列表
-    mode: 1,// 播放模式
+    mode: 0,// 播放模式
     currentIndex: 0,// 当前歌曲在播放列表的索引位置
     showPlayList: false,// 是否展示播放列表
     currentSong: {
@@ -263,7 +263,6 @@ export default (state = initState, action) => {
         case DELETE_PLAY_LIST_SONG : 
             let list = state.get('playList').toJS()
             let newList = list.filter(item => item.id !== action.data)
-            console.log(newList.length,'ddd')
             return state.set('playList',fromJS(newList))
         default:
             return state;

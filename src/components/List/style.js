@@ -4,7 +4,11 @@ export const SongItem = styled.ul`
   >li{
     display: flex;
     height: 60px;
-    align-items: center;  
+    align-items: center; 
+    .icon {
+    width: 15px;
+    height: 15px;
+}
     .index{
       flex-basis: 60px;
       width: 60px;
