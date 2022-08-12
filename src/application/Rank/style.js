@@ -5,8 +5,8 @@ import style from '../../assets/global-style';
 
 export const Container = styled.div`
   width: 100%;
-  height: 686px;
-  overflow: scroll;
+  height: ${props => props.playerStatus === 0 ? '750px' : '690px'};
+  overflow: hidden;
   .offical,.global {
     margin: 10px 5px;
     padding-top: 15px;

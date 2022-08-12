@@ -1,22 +1,18 @@
 import styled from "styled-components"
 import style from '../../assets/global-style'
 export const SongItem = styled.ul`
-  >li{
-    display: flex;
-    height: 60px;
-    align-items: center; 
-    .icon {
-    width: 15px;
-    height: 15px;
-}
-    .index{
+
+`
+export const Item = styled.li`
+  display: flex;
+  .index {
       flex-basis: 60px;
       width: 60px;
       height: 60px;
       line-height: 60px;
       text-align: center;
-    }
-    .info{
+  }
+  .info{
       box-sizing: border-box;
       flex: 1;
       display: flex;
@@ -31,11 +27,12 @@ export const SongItem = styled.ul`
       }
       >span:first-child{
         color: ${style["font-color-desc"]};
+        margin-bottom: 2px;
       }
       >span:last-child{
         font-size: ${style["font-size-s"]};
         color: #bba8a8;
       }
     }
-  }
+
 `

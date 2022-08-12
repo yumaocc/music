@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import Slider from '../../components/Slider'
 import RecommendList from '../../components/RecommendList'
-import { Content } from './style'
+import { Content, List } from './style'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBannerList, getRecommendList } from './store/actionCreators'
 import Loading2 from '../../components/Loading2/index'
 import { motion, AnimatePresence } from 'framer-motion'
+import Bs from '../../components/BS'
 export default function Recommend() {
     //初始化数据
     useEffect(() => {
@@ -17,19 +18,25 @@ export default function Recommend() {
         }
     }, []) //请求轮播图数据和推荐歌曲数据
     const dispatch = useDispatch()
-    const { recommend } = useSelector(state => state)
-    const bannerList = recommend.getIn(['banner']).toJS()
-    const recommendList = recommend.getIn(['recommend']).toJS()
-    const enterLoading = recommend.get('enterLoading')
+    const { bannerList , recommendList ,enterLoading ,currentSongStatus} = useSelector(state => {
+        return {
+            bannerList : state.recommend.getIn(['banner']).toJS(),
+            recommendList : state.recommend.getIn(['recommend']).toJS(),
+            enterLoading : state.recommend.get('enterLoading'),
+            currentSongStatus : state.player.toJS().currentSong.id
+        }
+    })
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}>
-            <Content >
+            <Content currentSongStatus={currentSongStatus}>
+                <Bs >
                 <Slider bannerList={bannerList}></Slider>
-                <RecommendList recommendList={recommendList}></RecommendList>
-                {enterLoading && <Loading2 />}
+                    <List><RecommendList recommendList={recommendList}></RecommendList> </List>
+                    {enterLoading && <Loading2 />}
+                </Bs>
             </Content>
         </motion.div>
     )

@@ -3,6 +3,7 @@ import style from '../../assets/global-style';
 
 export const ListWrapper = styled.div`
   max-width: 100%;
+  position: relative;
   .title {
     font-weight: 700;
     padding-left: 6px;
@@ -19,14 +20,16 @@ export const List = styled.div`
 `;
 
 export const ListItem = styled.div`
-  position: relative;
-  width: 32%;
+   position: relative;
+   width: 32%;
+   width: 122px;
+   height: 174px;
 
   .img_wrapper {
     .decorate {
       position: absolute;
       top: 0;
-      width: 100%;
+      width: 35px;
       height: 35px;
       border-radius: 3px;
       background: linear-gradient(hsla(0,0%,43%,.4),hsla(0,0%,100%,0));

@@ -1,11 +1,13 @@
 import styled from "styled-components"
 import style from '../../assets/global-style'
+
 export const SongItem = styled.ul`
-height: 80vh;
-width: 100%;
-overflow: scroll;
-transform: translateY(50px);
-  >li{
+  height: 80vh;
+  width: 100%;
+  overflow: scroll;
+  transform: translateY(50px);
+  padding-bottom: 50px;
+  li{
     display: flex;
     height: 60px;
     align-items: center;  
@@ -26,13 +28,13 @@ transform: translateY(50px);
       justify-content: space-around;
       border-bottom: 1px solid ${style["border-color"]};
       ${style.noWrap()}
-      >span{
+      span{
         ${style.noWrap()}
       }
-      >span:first-child{
+      span:first-child{
         color: ${style["font-color-desc"]};
       }
-      >span:last-child{
+      span:last-child{
         font-size: ${style["font-size-s"]};
         color: #bba8a8;
       }

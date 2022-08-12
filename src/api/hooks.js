@@ -13,6 +13,7 @@ import React, { useRef } from 'react'
         }, delay)
     }
 }
+
 export {
-     Debounce
+     Debounce,
 }

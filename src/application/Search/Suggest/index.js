@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from './style'
 import { motion } from 'framer-motion'
 export default function index(props) {
-    const { setSuggestShow, setValue, suggest ,searchClick} = props
+    const { setSuggestShow, setValue, suggest ,searchClick ,loading} = props
     return (
         <motion.div
             style={{

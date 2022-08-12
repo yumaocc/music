@@ -6,6 +6,8 @@ import {reducer as albumReducer} from '../application/Album/store'
 import {reducer as singerReducer} from '../application/Singer/store/index'
 import {reducer as playerReducer} from '../application/Player/store/index'
 import {reducer as searchReducer} from '../application/Search/store/index'
+import {reducer as loginReducer}  from '../application/Private/store/index'
+import {reducer as selfReducer} from '../application/Self/store/index'
   export default combineReducers({
   recommend: recommendReducer,
   singers: singersReducer,
@@ -13,5 +15,7 @@ import {reducer as searchReducer} from '../application/Search/store/index'
   album : albumReducer,
   singer : singerReducer,
   player:playerReducer,
-  search: searchReducer
+  search: searchReducer,
+  login:loginReducer,
+  self :selfReducer
 });

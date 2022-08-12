@@ -2,7 +2,13 @@ import { fromJS } from 'immutable'
 import {CHANGE_SINGER_LIST ,CHANGE_SINGER_LOADING} from './constants'
 
 const initState = fromJS({
-    singerList : {},
+    singerList : {
+      hotSongs : [],
+      artist:{
+        picUrl:'',
+        name:''
+      }
+    },
     singerLoading : true
 
 })
@@ -12,7 +18,6 @@ export default function reducer(state = initState ,action) {
     
     return state.set('singerList',action.data)
     case CHANGE_SINGER_LOADING : 
-    console.log(11)
     return state.set('singerLoading',action.data)
     default : 
     return state

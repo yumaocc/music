@@ -2,7 +2,6 @@ import {
   SET_CURRENT_SONG,
   SET_FULL_SCREEN,
   SET_PLAYING_STATE,
-  SET_SEQUENCE_PLAYLIST,
   SET_PLAYLIST,
   SET_PLAY_MODE,
   SET_CURRENT_INDEX,
@@ -26,14 +25,6 @@ const changePlayingState = (data) => ({
   type: SET_PLAYING_STATE,
   data
 });
-
-const changeSequencePlayList = (data) => {
-console.log(11)
-  return ({
-    type: SET_SEQUENCE_PLAYLIST,
-    data: fromJS(data)
-  });
-}
 const changePlayList = (data) => {
   if(Array.isArray(data)) {
     return ({
@@ -74,7 +65,6 @@ export {
   changeCurrentSong,
   changeFullScreen,
   changePlayingState,
-  changeSequencePlayList,
   changePlayList,
   changePlayMode,
   changeCurrentIndex,

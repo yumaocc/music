@@ -1,0 +1,28 @@
+.QR_code {
+  width: 80%;
+  height: 80%;
+  margin: 20px auto;
+}
+.QR_code p {
+  height: 30px;
+  line-height: 30px;
+  margin-left: 40px;
+}
+.QR_code button {
+  margin-left: 70px;
+  background-color: red;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.QR_code .img {
+  width: 100%;
+  height: 80%;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.QR_code .img_overdue {
+  width: 80%;
+  height: 80%;
+  margin: 20px auto;
+  position: relative;
+  top: 140px;
+}

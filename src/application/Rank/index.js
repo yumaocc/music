@@ -7,6 +7,7 @@ import Scroll from '../../components/Scroll'
 import { useNavigate, Outlet } from 'react-router-dom'
 import Loading2 from '../../components/Loading2'
 import { motion } from 'framer-motion'
+import BS from '../../components/BS'
 export default function Rank() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -16,10 +17,11 @@ export default function Rank() {
       dispatch(changeLoading(true))
     }
   }, [])
-  const { rankList, loading } = useSelector(state => {
+  const { rankList, loading ,playerStatus} = useSelector(state => {
     return {
       rankList: state.rank.get("rankList").toJS(),
-      loading: state.rank.get("loading")
+      loading: state.rank.get("loading"),
+      playerStatus:state.player.toJS().currentSong.id
     }
   })
   let globalStartIndex = filterIndex(rankList);
@@ -67,19 +69,19 @@ export default function Rank() {
 
   return (
     <motion.div
-      initial={{opacity:0 }}
-      animate={{opacity:1}}
-      exit={{opacity:0}}
-      >
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {
         loading ? <Loading2 /> :
-          <Container>
-              <div>
-                <h1 className="offical" style={displayStyle}> 官方榜 </h1>
-                {RenderRankList(officialList)}
-                <h1 className="global" style={displayStyle}> 全球榜 </h1>
-                {RenderRankList(globalList, true)}
-              </div>
+          <Container playerStatus={playerStatus}> 
+            <BS>
+              <h1 className="offical" style={displayStyle}> 官方榜 </h1>
+              {RenderRankList(officialList)}
+              <h1 className="global" style={displayStyle}> 全球榜 </h1>
+              {RenderRankList(globalList, true)}
+            </BS>
             <Outlet />
           </Container>
       }

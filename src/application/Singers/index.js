@@ -9,16 +9,23 @@ import {
   changePageCount,
 } from './store/actionCreators';
 import { useDispatch, useSelector } from 'react-redux';
-import {useNavigate ,Outlet} from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import Loading2 from '../../components/Loading2'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
+import BS from '../../components/BS';
 function Singers() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { singers } = useSelector((state) => state)
-  const singerList = singers.get("singerList").toJS()//歌手
-  const enterLoading = singers.get('enterLoading')
+  let [category, setCategory] = useState('')//字母
+  let [alpha, setAlpha] = useState('')//歌曲风格
   
+  const {singerList , enterLoading ,currentSongStatus} = useSelector(state => {
+    return {
+      singerList: state.singers.get("singerList").toJS(),
+      enterLoading: state.singers.get('enterLoading'),
+      currentSongStatus: state.player.toJS().currentSong.id
+    }
+  })
   useEffect(() => {
     // getHotSingerList()(dispatch)
     dispatch(getHotSingerList())//页面第一次加载的获取歌手数据
@@ -27,15 +34,14 @@ function Singers() {
     }
   }, [])
 
-  let [category, setCategory] = useState('')//字母
-  let [alpha, setAlpha] = useState('')//歌曲风格
+
 
   function updateDispatch(category, alpha) {
     dispatch(changePageCount(0))//查看特定类型的歌手，所以讲数据清零
     dispatch(changeEnterLoading(true))//因为要请求新的数据，所以改变loading逻辑
     dispatch(getSingerList(category, alpha))
   }
-  
+
 
   let handleUpdateAlpha = (val) => {//改变展示页,字母分类
     setAlpha(val)
@@ -46,7 +52,7 @@ function Singers() {
     setCategory(val)
     updateDispatch(category, val);
   }
-  
+
   const enterDetail = (id) => {
     navigate(`/singer/${id}`)
   }
@@ -57,9 +63,9 @@ function Singers() {
         {
           singerList.map((item, index) => {
             return (
-              <ListItem key={item.accountId + "" + index} onClick={()=>enterDetail(item.id)}>
+              <ListItem key={item.accountId + "" + index} onClick={() => enterDetail(item.id)}>
                 <div className="img_wrapper">
-                  <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />
+                  <img src={`${item.picUrl}?param=300x300`} loading="lazy" width="100%" height="100%" alt="music" />
                 </div>
                 <span className="name">{item.name}</span>
               </ListItem>
@@ -70,10 +76,10 @@ function Singers() {
     )
   };
   return (
-    <motion.div 
-    initial={{opacity:0}}
-    animate={{opacity:1}}
-    exit={{opacity:0}}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}>
       <NavContainer>
         <Horizon
           list={categoryTypes}
@@ -88,12 +94,15 @@ function Singers() {
           oldVal={alpha}>
         </Horizon>
       </NavContainer>
-      {enterLoading ? <Loading2 /> : 
-      <ListContainer>
-          {renderSingerList()}
-      </ListContainer>
+      {/* 625  648*/}
+      {enterLoading ? <Loading2 /> :
+        <ListContainer currentSongStatus={currentSongStatus}>
+          <BS >
+            {renderSingerList()}
+          </BS>
+        </ListContainer>
       }
-      
+
       <Outlet />
     </motion.div>
   )

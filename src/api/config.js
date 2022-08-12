@@ -4,6 +4,10 @@ import axios from 'axios'
     // baseURL: "https://nodejs-amber.vercel.app",
     baseURL: "http://localhost:3000",
 })
+// http://localhost:3000//user/playlist?uid=
+
+
+
 
 instance.interceptors.request.use(function (res) {
     return res
@@ -14,7 +18,7 @@ instance.interceptors.request.use(function (res) {
 instance.interceptors.response.use(function (res) {
     return res
 },function (err) {
-    return Promise.reject(err)
+    return Promise.reject('请求错误',err)
 })
 export default instance
 export const RankTypes = {

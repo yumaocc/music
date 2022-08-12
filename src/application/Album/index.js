@@ -1,26 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, TopDesc, Menu, SongList, SongItem } from './style'
 import Header from '../../baseUI/Header'
 import { useNavigate } from 'react-router-dom'
 import { getName, getCount } from '../../api/utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAlbum, changeEnterLoading } from './store/actionCreators'
 import Loading2 from '../../components/Loading2/index'
-import { changePlayList, changeCurrentSong, changeCurrentIndex ,changeFullScreen} from '../Player/store/actionCreator'
+import {
+    changePlayList,
+    changeCurrentSong,
+    changeCurrentIndex,
+    changeFullScreen
+} from '../Player/store/actionCreator'
+import {
+    Container,
+    TopDesc,
+    Menu,
+    SongList,
+    SongItem
+} from './style'
 import List from '../../components/List'
 import { motion } from 'framer-motion';
 export default function Album() {
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { coverImgUrl = '', subscribedCount = 0, name = '', creator = '', tracks = [], } = useSelector(state => {
-        return state.album.get('currentAlbum').toJS()
+    const {
+        coverImgUrl = '',
+        subscribedCount = 0,
+        name = '',
+        creator = '',
+        tracks = [],
+        enterLoading,
+        currentSongStatus
+    } = useSelector(state => {
+        return {
+            coverImgUrl: state.album.get('currentAlbum').toJS().coverImgUrl,
+            subscribedCount: state.album.get('currentAlbum').toJS().subscribedCount,
+            name: state.album.get('currentAlbum').toJS().name,
+            creator: state.album.get('currentAlbum').toJS().creator,
+            tracks: state.album.get('currentAlbum').toJS().tracks,
+            enterLoading: state.album.get('enterLoading'),
+            tracks: state.album.get('currentAlbum').toJS().tracks,
+            currentSongStatus: state.player.toJS().currentSong.id
+        }
     })
-    const enterLoading = useSelector(state => {
-        return state.album.get('enterLoading')
-    })
-   
+    
     useEffect(() => {
         getAlbum(id, dispatch)
         return () => {
@@ -30,6 +55,7 @@ export default function Album() {
     const handleBack = () => {
         navigate('/recommend')
     };//返回首页
+
     const allPlaySon = () => {
         dispatch(changePlayList(tracks))
         dispatch(changeCurrentSong(tracks[0]))
@@ -52,7 +78,7 @@ export default function Album() {
                             </div>
                             <div className="img_wrapper">
                                 <div className="decorate"></div>
-                                <img src={coverImgUrl} alt="" />
+                                <img src={coverImgUrl} loading="lazy" alt="" />
                                 <div className="play_count">
                                     <i className="iconfont play">&#xe885;</i>
                                     <span className="count">{Math.floor(subscribedCount / 1000) / 10} 万 </span>
@@ -62,7 +88,7 @@ export default function Album() {
                                 <div className="title">{name}</div>
                                 <div className="person">
                                     <div className="avatar">
-                                        <img src={creator.avatarUrl} alt="" />
+                                        <img src={creator.avatarUrl} loading="lazy" alt="" />
                                     </div>
                                     <div className="name">{creator.nickname}</div>
                                 </div>
@@ -89,11 +115,8 @@ export default function Album() {
                         <SongList>
                             <div className="first_line">
                                 <div className="play_all">
-                                    <i className="iconfont" onClick={() => {
-                                        dispatch(changePlayList(tracks))
-                                        dispatch(changeCurrentIndex(0))//当前歌曲下标
-                                    }}>&#xe6e3;</i>
-                                    <span onClick={allPlaySon}> 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
+                                    <i className="iconfont" onClick={allPlaySon}>&#xe6e3;</i>
+                                    <span> 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
                                 </div>
                                 <div className="add_list">
                                     <i className="iconfont">&#xe62d;</i>
@@ -108,6 +131,7 @@ export default function Album() {
                                     getName={getName}
                                     changePlayList={changePlayList}
                                     changeCurrentIndex={changeCurrentIndex}
+                                    currentSongStatus={currentSongStatus}
                                 />
                             </SongItem>
                         </SongList>

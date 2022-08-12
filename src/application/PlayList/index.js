@@ -17,6 +17,7 @@ function PlayList(props) {
     const deletePlayListSong = (id) => {
         dispatch(deleteSong(id))
     }
+   
     return (
         
         <AnimatePresence>
@@ -49,7 +50,7 @@ function PlayList(props) {
                                         playlist.map((item,index) => {
                                             return (
                                                 <motion.div
-                                                    key={item.id + index}
+                                                    key={item.name}
                                                     exit={{
                                                         x: -100
                                                     }}>

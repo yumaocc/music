@@ -2,15 +2,22 @@ import React, { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Container, Header, Hots, History, HotsList, HistoryList } from './style'
 import { useNavigate } from 'react-router-dom'
-import { changeSearch, changeHotSearch, changeDefault, changeSearchSuggest, changeSearchAction, changeSearchSuggestAction } from './store/actionCreators'
+import {
+    changeSearch,
+    changeHotSearch,
+    changeDefault,
+    changeSearchSuggest,
+    changeSearchAction,
+    changeSearchSuggestAction,
+    changeSearchLoading
+} from './store/actionCreators'
 import { useDispatch, useSelector } from 'react-redux'
 import { ClearOutlined } from '@ant-design/icons'
 import SearchLists from '../../components/SearchLists/index'
 import Suggest from './Suggest'
 import { changeCurrentSong, changePlayList, changeCurrentIndex, changeFullScreen } from '../Player/store/actionCreator'
 import { Debounce } from '../../api/hooks'
-
-
+import Loading2 from '../../components/Loading2'
 
 export default function Search() {
 
@@ -31,17 +38,18 @@ export default function Search() {
         setHistorySearch(JSON.parse(localStorage.getItem('historySearch')) || [])
     }, [])
 
-    const { defaultSearch, hots, suggest, searchQuest = [] } = useSelector(state => {
-        let s = state.search.toJS()
+    const { defaultSearch, hots, suggest, searchQuest, loading } = useSelector(state => {
         return {
-            defaultSearch: s.default,
-            hots: s.hots,
-            suggest: s.suggest,
-            searchQuest: s.searchQuest
+            defaultSearch: state.search.get('default'),
+            hots: state.search.get('hots').toJS(),
+            suggest: state?.search?.get('suggest')?.toJS(),
+            searchQuest: state?.search?.get('searchQuest')?.toJS(),
+            loading: state.search.get('loading')
         }
     })
 
     const searchClick = () => {
+        dispatch(changeSearchLoading(true))
         if (value === '') {
             historySearch.push({ name: searchRef.current.placeholder, id: Date.now() })
         } else {
@@ -64,29 +72,60 @@ export default function Search() {
             dispatch(changeSearchAction([]))//清空所搜到的歌曲
         }
         if (value !== '' && searchListShow === false) {
+            dispatch(changeSearchLoading(true))
             setSuggestShow(true) //打开搜索提示
         } else if (value === '') {
             setSuggestShow(false)
+            dispatch(changeSearchLoading(false))
             dispatch(changeSearchSuggestAction([]))
         }
     }, [value])
 
     const debounceChange = Debounce(function () {
         changeSearchSuggest(value, dispatch)
-    }, 1000)
+    }, 500)
 
     const handleChange = (e) => {
         setValue(e.target.value)
         debounceChange()
     }
 
+    const HistorySearchList = (props) => {
+        return (
+            props.historySearch.map(item => {
+                return (
+                    <HistoryList key={item.id} onClick={() => setValue(item.name)}>
+                        {item.name}
+                    </HistoryList>
+                )
+            })
+        )
+    }
+
+    const HotsSearchList = (props) => {
+        return (
+            props.hots.map((item, index) => {
+                return (
+                    <HotsList key={index}>
+                        <div className='num' style={{ color: index + 1 > 3 ? '' : 'red' }}>{index + 1}</div>
+                        <motion.div
+                            onClick={() => setValue(item.first)}
+                            whileTap={{ scale: 1.5 }}
+                            className='title'>{item.first}</motion.div>
+                    </HotsList>
+                )
+            })
+        )
+    }
+
     return (
-        <motion.div>
+        <>
             <Container >
                 <AnimatePresence>
                     <motion.div
+
                         initial={{
-                            x: 300,
+                            x: '100vw',
                             opacity: 0
                         }}
                         animate={{
@@ -106,61 +145,54 @@ export default function Search() {
                                 placeholder={defaultSearch}
                                 value={value} />
                             <div className='btn' onClick={searchClick}>搜索</div>
-                            {suggest.length > 0 && suggestShow ? <Suggest
-                                setSuggestShow={setSuggestShow}
-                                suggest={suggest}
-                                setValue={setValue}
-                                searchClick={searchClick}
-                            /> : ''}
                         </Header>
                         {
-                            searchQuest.length > 0 ?
-                                <SearchLists
-                                    tracks={searchQuest}
-                                    changeCurrentIndex={changeCurrentIndex}
-                                    changePlayList={changePlayList}
-                                    changeCurrentSong={changeCurrentSong}
-                                    changeFullScreen={changeFullScreen}
-                                /> :
+                            loading ? <Loading2 /> : (
                                 <div>
-                                    <History>
-                                        <div className='historyBtn'>
-                                            <div className='title'>历史记录</div>
-                                            <ClearOutlined onClick={clearHistory} />
-                                        </div>
-                                        <div className='historyContent'>
-                                            {
-                                                historySearch.map(item => {
-                                                    return (
-                                                        <HistoryList key={item.id} onClick={() => setValue(item.name)}>
-                                                            {item.name}
-                                                        </HistoryList>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                    </History>
-                                    <Hots>
-                                        <div className='hots_title'>热门搜索</div>
-                                        {
-                                            hots.map((item, index) => {
-                                                return (
-                                                    <HotsList key={index}>
-                                                        <div className='num' style={{ color: index + 1 > 3 ? '' : 'red' }}>{index + 1}</div>
-                                                        <motion.div
-                                                            onClick={() => setValue(item.first)}
-                                                            whileTap={{ scale: 1.5 }}
-                                                            className='title'>{item.first}</motion.div>
-                                                    </HotsList>
-                                                )
-                                            })
-                                        }
-                                    </Hots>
+                                    {suggest.length > 0 && suggestShow ? (
+                                        <Suggest
+                                            loading={loading}
+                                            setSuggestShow={setSuggestShow}
+                                            suggest={suggest}
+                                            setValue={setValue}
+                                            searchClick={searchClick}
+                                        />
+                                    ) : ''}
+                                    {
+                                        searchQuest.length > 0 ? (
+                                            <SearchLists
+                                                loading={loading}
+                                                tracks={searchQuest}
+                                                changeCurrentIndex={changeCurrentIndex}
+                                                changePlayList={changePlayList}
+                                                changeCurrentSong={changeCurrentSong}
+                                                changeFullScreen={changeFullScreen}
+                                            />
+                                        ) : (
+                                            <div>
+                                                <History>
+                                                    <div className='historyBtn'>
+                                                        <div className='title'>历史记录</div>
+                                                        <ClearOutlined onClick={clearHistory} />
+                                                    </div>
+                                                    <div className='historyContent'>
+                                                        <HistorySearchList historySearch={historySearch} />
+                                                    </div>
+                                                </History>
+                                                <Hots>
+                                                    <div className='hots_title'>热搜榜</div>
+                                                    <HotsSearchList hots={hots} />
+                                                </Hots>
+                                            </div>
+                                        )
+                                    }
                                 </div>
+                            )
                         }
                     </motion.div>
                 </AnimatePresence>
             </Container>
-        </motion.div>
+
+        </>
     )
 }

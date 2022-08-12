@@ -23,6 +23,8 @@ export default function reducer(state = defaultState, action) {
 
         case actionTypes.SEARCH_SUGGEST_REQUEST:
             return state.set('suggest', action.data)
+        case actionTypes.SEARCH_LOADING : 
+        return state.set('loading',action.data)
         default:
             return state
     }

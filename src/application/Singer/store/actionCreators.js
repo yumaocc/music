@@ -17,6 +17,7 @@ const getSingerLoading = (data) => {
 const getSinger = (dispatch ,id) => {
     getSingerInfoRequest(id)
     .then ( res => {
+        console.log(res)
         dispatch(getSingerAction(res.data))
         dispatch(getSingerLoading(false))
     })

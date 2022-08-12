@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
     changeCurrentSong,
     changeFullScreen,
@@ -12,7 +12,6 @@ import { Container } from './style'
 import MiniPlayer from './MiniPlayer'
 import NormalPlayer from './NormalPlayer'
 import { getSongUrl } from '../../api/utils'
-import PlayList from '../PlayList'
 
 
 export default function Player() {
@@ -29,8 +28,6 @@ export default function Player() {
         mode,//播放模式
         playList,//播放列表
         playing,//当前歌曲是否播放
-        sequencePlayList,// 顺序列表 
-        showPlayList
     } = useSelector(state => {
         const { player } = state
         const data = player.toJS()
@@ -54,9 +51,8 @@ export default function Player() {
         setCurrentTime(0)
         audioRef.current.src = getSongUrl(currentSong.id)
         dispatch(changePlayingState(true))
-        playMusic()
-        playList.push(currentSong)
         dispatch(changePlayList(playList))
+        playMusic()
     }, [currentSong.id])
 
     //播放音乐
@@ -67,11 +63,11 @@ export default function Player() {
     }
 
     //进度条拖动事件
-    const songTimeUpdate = (value) => {//进度条拖动或者点击改变歌曲播放时间
+    const songTimeUpdate = useCallback((value) => {//进度条拖动或者点击改变歌曲播放时间
         if (value) {
             setCurrentTime(audioRef.current.currentTime = value)
         }
-    }
+    })
 
     //一首歌循环
     const handleLoop = () => {
@@ -83,7 +79,7 @@ export default function Player() {
     }
 
     //上一曲
-    const handlePrev = () => {
+    const handlePrev = (() => {
         //播放列表只有一首歌时单曲循环
         if (playList.length === 1) {
             handleLoop()
@@ -96,10 +92,10 @@ export default function Player() {
         let current = playList[index] //拿到播放列别的歌曲，然后让其播放
         dispatch(changeCurrentSong(current))
         playMusic()
-    }
+    })
 
     //下一曲
-    const handleNext = () => {
+    const handleNext = useCallback(() => {
         //播放列表只有一首歌时单曲循环
         if (playList.length === 1) {
             handleLoop()
@@ -112,7 +108,7 @@ export default function Player() {
         let current = playList[index] //拿到播放列别的歌曲，然后让其播放
         dispatch(changeCurrentSong(current))
         playMusic()
-    }
+    })
 
     //跟新歌曲播放时间
     const onTimeUpdate = () => {
@@ -135,7 +131,7 @@ export default function Player() {
         setCurrentTime(audioRef.current.currentTime)
     }
     //播放暂停函数
-    const songPlayingSwitch = () => {//播放和暂停
+    const songPlayingSwitch = useCallback(() => {//播放和暂停
         if (!playing) {
             audioRef.current.play()
             dispatch(changePlayingState(true))
@@ -143,7 +139,7 @@ export default function Player() {
             audioRef.current.pause()
             dispatch(changePlayingState(false))
         }
-    }
+    })
 
     return (
         <Container>
@@ -157,7 +153,7 @@ export default function Player() {
                     playing={playing}
                     songPlayingSwitch={songPlayingSwitch}
                     currentTime={currentTime}
-                    duration={audioRef.current.duration}
+                    duration={audioRef?.current?.duration}
                     songTimeUpdate={songTimeUpdate}
                     mode={mode}
                     changePlayMode={changePlayMode}

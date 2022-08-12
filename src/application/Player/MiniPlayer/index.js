@@ -21,7 +21,7 @@ function MiniPlayer(props) {
       <MiniPlayerContainer >
         <div className="icon" onClick={handleClick}>
           <div className="imgWrapper">
-            <img className={playing ? "play" : 'paused'} src={song.al.picUrl} width="40" height="40" alt="img" />
+            <img className={playing ? "play" : 'paused'} loading="lazy" src={song.al.picUrl} width="40" height="40" alt="img" />
           </div>
         </div>
         <div className="text">

@@ -14,8 +14,9 @@ export const ListContainer = styled.div`
   top: 160px;
   left: 0;
   bottom: 0;
-  overflow: scroll;
+  overflow: hidden;
   width: 100%;
+  height: ${props => props.currentSongStatus === 0 ? '684px' : '625px'};
 `;
 
 export const List = styled.div`

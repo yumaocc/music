@@ -41,14 +41,17 @@ export const Header = styled.div`
 export const Hots = styled.div`
     width: 90%;
     margin: 0 20px;
-    height: 500px;
-    overflow: scroll;
+    height: 509px;
+    overflow: hidden;
     border-radius: 10px;
-    padding: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
+   
     .hots_title {
         padding: 10px 0;
         font-weight: 600;
-        border-bottom: 1px solid #d9d9d9;
+        margin-left: 10px;
+        border-bottom: 1px solid #f0f0f0;
        
     }
 `
@@ -83,7 +86,8 @@ export const HotsList = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-start;
-    padding: 20px 10px;
+    padding: 12px 10px;
+   
     .num {
         font-weight: 700;
         font-size: 15px;

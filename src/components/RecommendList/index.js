@@ -5,8 +5,7 @@ import {
     List
 } from './style';
 import { getCount } from '../../api/utils'
-import { useNavigate, Outlet, Link } from 'react-router-dom'
-
+import { useNavigate, Outlet, } from 'react-router-dom'
 function RecommendList(props) {
     const navigate = useNavigate()
     const enterDetail = (id) => {
@@ -20,10 +19,10 @@ function RecommendList(props) {
                 {
                     props.recommendList.map((item, index) => {
                         return (
-                            <ListItem key={item.id + index}
+                            <ListItem className='name' key={item.id + index}
                                 onClick={() => enterDetail(item.id)}>
                                 <div className="img_wrapper">
-                                    <img src={item.picUrl + "?param=300x300"} width="100%" height="100%" alt="music" />
+                                    <img src={item.picUrl + "?param=300x300"}  width="100%" height="100%" alt="music" />
                                     <div className="play_count">
                                         <i className="iconfont play">&#xe885;</i>
                                         <span className="count">{getCount(item.playCount)}</span>
