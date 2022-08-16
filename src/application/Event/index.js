@@ -3,9 +3,10 @@ import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import {Item } from './styel'
 import dayjs from 'dayjs'
+import { memo } from 'react'
 
 
-export default function Event() {
+function Event() {
     const { data, avatar, name } = useSelector(state => {
         return {
             data: state.self.get('event').toJS(),
@@ -64,3 +65,5 @@ export default function Event() {
         </motion.div>
     )
 }
+
+export default memo(Event)

@@ -307,6 +307,7 @@ const artist = {
 
 const getAlbumName = (array) => {
   let result = ''
+  if(!array) return 
   for (let i = 0; i < array.length; i++) {
     const element = array[i].name;
     result.length === 0 ? result += element : result += '/' + element
@@ -367,7 +368,7 @@ const debounce = (callback, delay) => {
     }, delay)
   }
 }
-const getConstellation = (birthday, dayjs) => {//获取星座
+const getConstellation = ( dayjs,birthday) => {//获取星座
   let time = dayjs(birthday)
   let day = time.$D
   let month = time.$M - 1

@@ -4,12 +4,20 @@ import { Top, Tab, TabItem } from './style'
 import Player from '../Player'
 import Private from '../Private'
 import { AnimatePresence, motion } from 'framer-motion'
-import { } from '../../api/request'
-import { useSelector } from 'react-redux'
-export default function Home() {
+import { useDispatch, useSelector } from 'react-redux'
+import { memo } from 'react'
+import {changeLoginStatus} from '../Private/store/actionCretors'
+ function Home() {
   const navigate = useNavigate()
   const [privateShow, setPrivateShow] = useState(false)//控制个人主页显示和影藏
   const  currentSongStatus = useSelector(state => state.player.toJS().currentSong.id)
+  const dispatch = useDispatch()
+useEffect(() => {
+        if (localStorage.getItem('cookie')) {
+            changeLoginStatus(localStorage.getItem('cookie'), dispatch)
+        }
+    }, [])
+
   return (
     <div>
       <Top>
@@ -44,3 +52,4 @@ export default function Home() {
     </div>
   )
 }
+export default memo(Home)

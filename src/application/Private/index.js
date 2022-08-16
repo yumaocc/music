@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Main, Aside, Footer, Content } from './style'
 import { motion } from 'framer-motion'
 import Header from './Header/index'
 import { } from '../../api/request'
 import { message } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
-import { userStatusAction, changeLoginStatus } from './store/actionCretors'
+import { userStatusAction } from './store/actionCretors'
 import SettingBtn from '../../components/SettingBtn'
 import { selfMock_A, selfMock_B, selfMock_C, selfMock_D } from '../../api/utils'
 import BS from '../../components/BS'
+import { memo } from 'react'
+
 const variants = {
     initial: { x: '-100vw', opacity: 0 },
     animate: { x: '0vw', opacity: 1 },
@@ -24,17 +26,9 @@ const style = {
     zIndex: 99999,
 }
 
-export default function Private(props) {
+ function Private(props) {
     const { setPrivateShow } = props
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (localStorage.getItem('cookie')) {
-            changeLoginStatus(localStorage.getItem('cookie'), dispatch)
-        }
-    }, [])
-
-
     const { userStatus, username, avatar } = useSelector(state => {
         let name = state.login.get('userData').toJS()
         let avatar = state.login.get('userData').toJS()
@@ -81,3 +75,4 @@ export default function Private(props) {
         </motion.div >
     )
 }
+export default memo(Private)

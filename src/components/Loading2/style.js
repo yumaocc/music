@@ -4,6 +4,10 @@ export  const Content = styled.div`
     display: flex;
     justify-content: center;
     align-items: end;
-    transform: translateY(300px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 9999;
+    background-color: white;
 `

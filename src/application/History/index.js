@@ -1,15 +1,23 @@
-import React, { useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useEffect,  useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Container, Animation, Content } from './style'
 import BackButton from '../../baseUI/BackButton'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import HistoryList from '../HistoryList'
-import { useSelector } from 'react-redux'
-export default function History() {
-    const { state } = useLocation()
+import { useDispatch, useSelector } from 'react-redux'
+import { changeUserSongPlayList } from '../Self/store/actionCreators'
+import { memo } from 'react'
+function History() {
     const [changeList, setChangeList] = useState(true)
     const navigate = useNavigate()
     const [isShow, setIsShow] = useState(true)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        changeUserSongPlayList(localStorage.getItem('userId'), dispatch)
+    }, [])
+
+    const data = useSelector(state => state.self.toJS().userAllSongPlayList)
     const handleClick = () => {
         setIsShow(false)
     }
@@ -18,7 +26,10 @@ export default function History() {
         <Animation>
             <CSSTransition
                 in={isShow}
-                classNames='card'
+                classNames={{
+                    enterActive: 'animate__animated animate__fadeInRight',
+                    exitActive: 'animate__animated animate__fadeOutLeft',
+                }}
                 timeout={500}
                 appear
                 onExited={() => navigate(-1)}
@@ -34,7 +45,7 @@ export default function History() {
                         <SwitchTransition>
                             <CSSTransition
                                 key={changeList}
-                                timeout={900}
+                                timeout={500}
                                 unmountOnExit={true}
                                 mountOnEnter={true}
                                 appear
@@ -43,8 +54,8 @@ export default function History() {
                                     exitActive: 'animate__animated animate__fadeOutLeft',
                                 }}>
                                 {
-                                    changeList ? <HistoryList state={state} /> :
-                                        <HistoryList state={[...state].sort(() => 0.5 - Math.random())} />
+                                    changeList ? <HistoryList state={data} /> :
+                                        <HistoryList state={[...data].sort(() => 0.5 - Math.random())} />
                                 }
                             </CSSTransition>
                         </SwitchTransition>
@@ -54,3 +65,5 @@ export default function History() {
         </Animation>
     )
 }
+
+export default memo(History)

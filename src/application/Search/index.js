@@ -18,8 +18,9 @@ import Suggest from './Suggest'
 import { changeCurrentSong, changePlayList, changeCurrentIndex, changeFullScreen } from '../Player/store/actionCreator'
 import { Debounce } from '../../api/hooks'
 import Loading2 from '../../components/Loading2'
+import { memo } from 'react'
 
-export default function Search() {
+ function Search() {
 
     const navigate = useNavigate()
     const searchRef = useRef()
@@ -196,3 +197,5 @@ export default function Search() {
         </>
     )
 }
+
+export default memo(Search)

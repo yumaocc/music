@@ -1,7 +1,8 @@
 import React from 'react'
 import { Content } from './style'
 import { useNavigate } from 'react-router-dom'
-export default function Index(props) {
+import { memo } from 'react'
+function Index(props) {
     const { username, avatar, userStatus, setPrivateShow } = props
     const navigate = useNavigate()
     const handleClick = () => {
@@ -22,3 +23,4 @@ export default function Index(props) {
         </Content>
     )
 }
+export default memo(Index)

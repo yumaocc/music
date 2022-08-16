@@ -20,11 +20,13 @@ import {
     SongItem
 } from './style'
 import List from '../../components/List'
-import { motion } from 'framer-motion';
-export default function Album() {
+import { CSSTransition } from 'react-transition-group'
+import { memo } from 'react'
+function Album() {
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [isShow, setIsShow] = useState(true)
     const {
         coverImgUrl = '',
         subscribedCount = 0,
@@ -45,15 +47,15 @@ export default function Album() {
             currentSongStatus: state.player.toJS().currentSong.id
         }
     })
-    
+
     useEffect(() => {
-        getAlbum(id, dispatch)
+        getAlbum(id, dispatch, localStorage.getItem('cookie'))
         return () => {
             dispatch(changeEnterLoading(true))
         }
     }, [])//根据页面跳转的id 获取相应的数据
     const handleBack = () => {
-        navigate('/recommend')
+        setIsShow(false)
     };//返回首页
 
     const allPlaySon = () => {
@@ -62,81 +64,93 @@ export default function Album() {
         dispatch(changeCurrentIndex(0))
     }
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, x: 100 }}>
-            {enterLoading ?
-                <Loading2 />
-                :
-                <Container>
-                    <Header title='返回' handleClick={handleBack} background={coverImgUrl} />
-                    <div>
-                        <TopDesc background={coverImgUrl}>
-                            <div className="background">
-                                <div className="filter"></div>
-                            </div>
-                            <div className="img_wrapper">
-                                <div className="decorate"></div>
-                                <img src={coverImgUrl} loading="lazy" alt="" />
-                                <div className="play_count">
-                                    <i className="iconfont play">&#xe885;</i>
-                                    <span className="count">{Math.floor(subscribedCount / 1000) / 10} 万 </span>
-                                </div>
-                            </div>
-                            <div className="desc_wrapper">
-                                <div className="title">{name}</div>
-                                <div className="person">
-                                    <div className="avatar">
-                                        <img src={creator.avatarUrl} loading="lazy" alt="" />
+        <CSSTransition
+            in={isShow}
+            appear
+            timeout={500}
+            unmountOnExit={true}
+            mountOnEnter={true}
+            classNames={{
+                exitActive: 'animate__animated animate__backOutDown'
+            }}
+            onExited={() => navigate('/')}
+        >
+            <Container>
+                <Header title='返回' handleClick={handleBack} background={coverImgUrl} />
+                {enterLoading
+                    ?
+                    <Loading2 />
+                    : (
+                        <>
+                            <div>
+                                <TopDesc background={coverImgUrl}>
+                                    <div className="background">
+                                        <div className="filter"></div>
                                     </div>
-                                    <div className="name">{creator.nickname}</div>
-                                </div>
-                            </div>
-                        </TopDesc>
-                        <Menu>
-                            <div>
-                                <i className="iconfont">&#xe6ad;</i>
-                                评论
-                            </div>
-                            <div>
-                                <i className="iconfont">&#xe86f;</i>
-                                点赞
-                            </div>
-                            <div>
-                                <i className="iconfont">&#xe62d;</i>
-                                收藏
-                            </div>
-                            <div>
-                                <i className="iconfont">&#xe606;</i>
-                                更多
-                            </div>
-                        </Menu>
-                        <SongList>
-                            <div className="first_line">
-                                <div className="play_all">
-                                    <i className="iconfont" onClick={allPlaySon}>&#xe6e3;</i>
-                                    <span> 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
-                                </div>
-                                <div className="add_list">
-                                    <i className="iconfont">&#xe62d;</i>
-                                    <span > 收藏 ({getCount(subscribedCount)})</span>
-                                </div>
-                            </div>
-                            <SongItem>
-                                <List
-                                    changeFullScreen={changeFullScreen}
-                                    tracks={tracks}
-                                    changeCurrentSong={changeCurrentSong}
-                                    getName={getName}
-                                    changePlayList={changePlayList}
-                                    changeCurrentIndex={changeCurrentIndex}
-                                    currentSongStatus={currentSongStatus}
-                                />
-                            </SongItem>
-                        </SongList>
-                    </div>
-                </Container>}
-        </motion.div>
+                                    <div className="img_wrapper">
+                                        <div className="decorate"></div>
+                                        <img src={coverImgUrl} loading="lazy" alt="" />
+                                        <div className="play_count">
+                                            <i className="iconfont play">&#xe885;</i>
+                                            <span className="count">{Math.floor(subscribedCount / 1000) / 10} 万 </span>
+                                        </div>
+                                    </div>
+                                    <div className="desc_wrapper">
+                                        <div className="title">{name}</div>
+                                        <div className="person">
+                                            <div className="avatar">
+                                                <img src={creator.avatarUrl} loading="lazy" alt="" />
+                                            </div>
+                                            <div className="name">{creator.nickname}</div>
+                                        </div>
+                                    </div>
+                                </TopDesc>
+                                <Menu>
+                                    <div>
+                                        <i className="iconfont">&#xe6ad;</i>
+                                        评论
+                                    </div>
+                                    <div>
+                                        <i className="iconfont">&#xe86f;</i>
+                                        点赞
+                                    </div>
+                                    <div>
+                                        <i className="iconfont">&#xe62d;</i>
+                                        收藏
+                                    </div>
+                                    <div>
+                                        <i className="iconfont">&#xe606;</i>
+                                        更多
+                                    </div>
+                                </Menu>
+                                <SongList>
+                                    <div className="first_line">
+                                        <div className="play_all">
+                                            <i className="iconfont" onClick={allPlaySon}>&#xe6e3;</i>
+                                            <span> 播放全部 <span className="sum">(共 {tracks.length} 首)</span></span>
+                                        </div>
+                                        <div className="add_list">
+                                            <i className="iconfont">&#xe62d;</i>
+                                            <span > 收藏 ({getCount(subscribedCount)})</span>
+                                        </div>
+                                    </div>
+                                    <SongItem>
+                                        <List
+                                            changeFullScreen={changeFullScreen}
+                                            tracks={tracks}
+                                            changeCurrentSong={changeCurrentSong}
+                                            getName={getName}
+                                            changePlayList={changePlayList}
+                                            changeCurrentIndex={changeCurrentIndex}
+                                            currentSongStatus={currentSongStatus}
+                                        />
+                                    </SongItem>
+                                </SongList>
+                            </div> </>
+                    )}
+            </Container>
+        </CSSTransition>
     )
 }
+
+export default memo(Album)

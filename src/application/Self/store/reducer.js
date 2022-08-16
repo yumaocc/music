@@ -7,8 +7,9 @@ import {
     SELF_USER_EVENT,
     SELF_USER_LOAD,
     SELF_USER_SONG_LIST,
-    SELF_USER_SONG_PLAY_LIST
-    
+    SELF_USER_SONG_PLAY_LIST,
+    SELF_USER_LOGIN_DATA
+
 } from './actionTypes'
 const initState = fromJS({
     userDetail: {
@@ -22,18 +23,19 @@ const initState = fromJS({
         },
         level: 0,
         createDays: 0,
-        listenSongs: 0
+        listenSongs: 0,
     },
     fans: '',//粉丝数
     follow: '',//关注数
     event: '',//用户动态
-    load: false,
     userSongPlayList: [
 
     ],
-    userAllSongPlayList :[
+    userAllSongPlayList: [
 
     ]//用户最近听过的所有歌
+    ,
+    loading: true,
 })
 
 export default function reducer(state = initState, action) {
@@ -49,12 +51,13 @@ export default function reducer(state = initState, action) {
         case SELF_USER_EVENT:
             return state.set('event', action.data)
         case SELF_USER_LOAD:
-            return state.set('load', action.data)
-        case SELF_USER_SONG_LIST : 
-            return state.set('userSongPlayList',action.data)
-        case SELF_USER_SONG_PLAY_LIST : 
-        console.log('reducer',action.data)
-        return state.set('userAllSongPlayList',action.data)
+            return state.set('loading', action.data)
+        case SELF_USER_SONG_LIST:
+            return state.set('userSongPlayList', action.data)
+        case SELF_USER_SONG_PLAY_LIST:
+            return state.set('userAllSongPlayList', action.data)
+        case SELF_USER_LOGIN_DATA : 
+            return state.set('userData' ,action.data)
         default:
             return state
     }

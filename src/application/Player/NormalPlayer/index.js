@@ -13,7 +13,6 @@ import {
 import ProgressBar from '../../../baseUI/ProgressBar'
 import Toast from '../../../baseUI/Toast'
 import PlayList from '../../PlayList';
-import { AnimatePresence, motion } from 'framer-motion'
 function NormalPlayer(props) {
   const { song,
     changeFullScreen,

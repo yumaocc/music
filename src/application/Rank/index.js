@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRankList, changeLoading } from './store/index'
-import { filterIndex, filterIdx } from '../../api/utils'
+import { filterIndex } from '../../api/utils'
 import { Container, List, ListItem, SongList } from './style'
-import Scroll from '../../components/Scroll'
 import { useNavigate, Outlet } from 'react-router-dom'
 import Loading2 from '../../components/Loading2'
 import { motion } from 'framer-motion'
 import BS from '../../components/BS'
-export default function Rank() {
+import { memo } from 'react'
+ function Rank() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   useEffect(() => {
@@ -90,3 +90,4 @@ export default function Rank() {
 }
 
 
+export default memo(Rank)

@@ -1,7 +1,8 @@
 import React from 'react'
 import {motion} from 'framer-motion'
 import {Container} from './style'
-export default function index() {
+import { memo } from 'react'
+ function index() {
   return (
     <motion.div
         initial={{y:200}}
@@ -13,3 +14,4 @@ export default function index() {
     </motion.div>
   )
 }
+export default memo(index)

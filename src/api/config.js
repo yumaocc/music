@@ -55,3 +55,4 @@ export const RankTypes = {
     loop: 1,
     random: 2
   };
+  

@@ -5,6 +5,7 @@ import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux'
 import { getAlbumName } from '../../api/utils'
 import { changeCurrentSong, deleteSong } from '../Player/store/actionCreator'
+import { memo } from 'react';
 function PlayList(props) {
     const { setPlayListSHow, playListShow ,height} = props
     const dispatch = useDispatch()
@@ -17,11 +18,9 @@ function PlayList(props) {
     const deletePlayListSong = (id) => {
         dispatch(deleteSong(id))
     }
-   
     return (
         
         <AnimatePresence>
-
             {
                 playListShow &&
                 <motion.div
@@ -36,7 +35,6 @@ function PlayList(props) {
                         y: 1100
                     }}
                 ><PlayListWrapper>
-                    
                         <div className="list_wrapper">
                             <CloseOutlined
                                 className='list_close'
@@ -47,7 +45,7 @@ function PlayList(props) {
                             <ScrollWrapper>
                                 <AnimatePresence>
                                     {
-                                        playlist.map((item,index) => {
+                                        playlist.map((item) => {
                                             return (
                                                 <motion.div
                                                     key={item.name}
@@ -78,4 +76,4 @@ function PlayList(props) {
 
     )
 }
-export default PlayList;
+export default memo(PlayList)

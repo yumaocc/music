@@ -4,9 +4,10 @@ import { Container, Content } from './style'
 import { useNavigate } from 'react-router-dom'
 import Phone from './Phone'
 import QRcode from './QRcode'
+import { memo } from 'react'
 
 
-export default function Login() {
+ function Login() {
     const navigate = useNavigate()
     const [loginMode, setLoginMode] = useState(false) //false 表示使用手机号登录，true表示使用二维码登录
     
@@ -33,3 +34,5 @@ export default function Login() {
         </Container>
     )
 }
+
+export default memo(Login)

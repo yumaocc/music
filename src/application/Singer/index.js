@@ -7,8 +7,6 @@ import { PlusOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { getSinger, getSingerLoading } from './store/actionCreators'
 import { useDispatch, useSelector } from 'react-redux';
 import { getName } from '../../api/utils'
-import { CustomerServiceOutlined } from '@ant-design/icons';
-import { motion } from 'framer-motion';
 import Loading2 from '../../components/Loading2'
 import {
     changePlayList,
@@ -16,6 +14,7 @@ import {
     changeCurrentIndex,
     changeFullScreen
 } from '../Player/store/actionCreator'
+import { memo } from 'react';
 function Singer() {
     const singerRef = useRef()
     const dispatch = useDispatch()
@@ -25,7 +24,6 @@ function Singer() {
 
     useEffect(() => {
         getSinger(dispatch, id)
-        console.log(111)
         return () => {
             dispatch(getSingerLoading(true))
         }
@@ -89,4 +87,4 @@ function Singer() {
         </Container>
 }
 
-export default Singer;
+export default memo(Singer)

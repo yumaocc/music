@@ -8,6 +8,7 @@ import Loading2 from '../../../../components/Loading2'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeQRimage, QRstatusAction, userDetailAction, userStatusAction, changeLoginStatus } from '../../store/actionCretors'
 import { checkQRcodeStatus } from '../../../../api/request'
+import { memo } from 'react'
 const style = {
     position: 'relative',
     left: '51vw',
@@ -15,7 +16,7 @@ const style = {
 }
 
 
-export default function QRcode(props) {
+ function QRcode(props) {
     const { setLoginMode } = props
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -79,3 +80,4 @@ export default function QRcode(props) {
         </motion.div>
     )
 }
+export default memo(QRcode)

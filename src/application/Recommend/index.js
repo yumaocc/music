@@ -5,9 +5,10 @@ import { Content, List } from './style'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBannerList, getRecommendList } from './store/actionCreators'
 import Loading2 from '../../components/Loading2/index'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Bs from '../../components/BS'
-export default function Recommend() {
+import { memo } from 'react'
+ function Recommend() {
     //初始化数据
     useEffect(() => {
         const dispatchBannerList = getBannerList()
@@ -41,3 +42,5 @@ export default function Recommend() {
         </motion.div>
     )
 }
+
+export default memo(Recommend)

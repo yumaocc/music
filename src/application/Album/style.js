@@ -11,6 +11,13 @@ export const Container = styled.div`
   background: #fff;
   overflow: scroll;
   height: 100vh;
+  .animation-appear {
+    transform: translateY(100);
+  }
+  .animation-appear-active {
+    transform: translateY(0);
+    transition: all;
+  }
 `;
 
 export const TopDesc = styled.div`

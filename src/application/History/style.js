@@ -9,13 +9,13 @@ const animation = keyframes`
 `
 export const Container = styled.div`
     position: absolute;
-    top: 0;
+    top: -8px;
     left: 0;
     width: 100%;
     height: 844px;
     z-index: 99;
     background-color: #f5f5f5;
-    background-color: pink;
+    transform: translateY(-150px) !important;
     .taps {
         width: 100%;
         height: 20px;

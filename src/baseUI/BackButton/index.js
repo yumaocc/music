@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Content = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 40px;
     display: flex;
     justify-content: start;
@@ -11,11 +11,13 @@ const Content = styled.div`
     left: 20px;
     .back {
         margin-right: 20px;
+        margin-top: -20px;
         color: ${({color}) => color };
     }
     h1 {
         color: ${({color}) => color };
         font-size: 15px;
+        margin-left: 10px;
     }
 `
 

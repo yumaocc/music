@@ -25,8 +25,8 @@ const deleteList = () => {
         data:{}
     }
 }
-export function getAlbum(id,dispatch) {
-    getAlbumDetailRequest(id).then(res => {
+export function getAlbum(id,dispatch ,cookie) {
+    getAlbumDetailRequest(id ,cookie).then(res => {
         let data = res.data.playlist;
         dispatch(changeCurrentAlbum(data))
         dispatch(changeEnterLoading(false))

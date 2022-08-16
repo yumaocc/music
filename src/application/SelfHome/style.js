@@ -1,54 +1,53 @@
 import styled from "styled-components";
 
-export const Content_A = styled.div`
+export const Card_A = styled.div`
     width: 100%;
-    background-color: white;
+    width: 100%;
+    height: 250px;
     border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-    .Information {
-        width: 100%;
-        height: 160px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        h1{
+            font-size: 25px;
+            font-weight: bold;
+        }
+        a {
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 10px;
+            border: 1px solid #f0f0f0;
+            color: black;
+        }
+    }
+    .content {
+        width: 90%;
+        height: 100px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        border-bottom: 1px solid #d9d9d9;
-        h3 {
-            color: gray;
-        }
-        h1 {
-            font-size: 20px;
-        }
+        border-bottom: 1px solid #f0f0f0;
+
     }
-    .Information_more {
-        width: 100%;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        h3 {
-            color: gray;
-        }
-    }
-`
-export const Content_B = styled.div`
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 20px;
-    h1 {
-            font-size: 20px;
-        }
-    span {
-        font-size: 13px;
+    .more {
+        margin-top: 20px;
         color: gray;
     }
 `
+
 export const Item = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-bottom: 10px;
     .img {
         width: 60px;
         height: 60px;
@@ -59,13 +58,19 @@ export const Item = styled.div`
             border-radius: 10px;
         }
     }
+   .text {
+    width: calc(100% - 60px);
+    overflow:hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
     h2 {
         font-size: 20px;
         font-weight: 300;
         margin-bottom: 5px;
-        overflow: hidden;
+        
+
         height: 28px;
-    width: 97%;
+        width: 100%;
 
     }
     h3 {
@@ -73,91 +78,40 @@ export const Item = styled.div`
         color: gray;
         overflow: hidden;
         height: 28px;
-    width: 97%;
+        width: 97%;
     }
+   }
 `
-export const Content_C = styled.div`
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 20px;
-    h1 {
-            font-size: 20px;
-        }
-    span {
-        font-size: 13px;
-        color: gray;
-    }
-    .img {
-        display: flex;
-        align-items: center;
-        margin-top: 10px;
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            margin-right: 5px;
-        }
-    .comments_song {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        .icon {
-            position: none !important;
-
-        }
-        .song_name {
-            font-size: 10px;
-            color: gray;
-            font-weight: 300;
-        }
-    }
-}
-.comments {
-        margin-top: 10px;
-        font-size: 15px;
-    }
-.comments_author {
-    margin-top: 10px;
+export const Card_B = styled.div`
     width: 100%;
-    overflow: hidden;
-    background-color: #d9d9d9;
-    border-radius: 5px;
-    padding: 10px;
-    div {
-        display: inline;
-        color: #1890ff;
-    }
-    p {
-        display: inline;
-        
-    }
-}
-.comments_time {
-    margin-top: 10px;
-    color: gray;
-    font-size: 10px;
-}
-
-`
-export const Content_D = styled.div`
-    padding: 20px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: white;
+    box-sizing: border-box;
     border-radius: 10px;
     margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    .title {
+        font-size: 25px;
+        margin-bottom: 20px;
+    }
+`
+export const Card_C = styled.div`
+   width: 100%;
+   height: 100px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    bottom: 30px;
     h1 {
-            font-size: 25px;
-        }
-    h2 {
-        color: gray;
-        font-size: 15px;
+        font-size: 20px;
+        font-weight: bold;
     }
+    div {
+        color: gray;
+    }
+
 
 `

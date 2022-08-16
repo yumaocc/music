@@ -12,9 +12,10 @@ import { Container } from './style'
 import MiniPlayer from './MiniPlayer'
 import NormalPlayer from './NormalPlayer'
 import { getSongUrl } from '../../api/utils'
+import { memo } from 'react'
 
 
-export default function Player() {
+ function Player() {
     //目前播放时间
     const [currentTime, setCurrentTime] = useState(0) //歌曲进度
     //歌曲总时长
@@ -42,7 +43,6 @@ export default function Player() {
             showPlayList: data.showPlayList
         }
     })
-    //模拟数据给currentIndex
     useEffect(() => {
         dispatch(changeCurrentIndex(0))
         setTimeout(() => dispatch(changePlayingState(false)))
@@ -50,16 +50,15 @@ export default function Player() {
     useEffect(() => {
         setCurrentTime(0)
         audioRef.current.src = getSongUrl(currentSong.id)
-        dispatch(changePlayingState(true))
+
         dispatch(changePlayList(playList))
         playMusic()
     }, [currentSong.id])
 
     //播放音乐
     const playMusic = () => {
-        setTimeout(() => {
-            audioRef.current.play()
-        })
+        audioRef.current?.play()
+        dispatch(changePlayingState(true))
     }
 
     //进度条拖动事件
@@ -72,10 +71,7 @@ export default function Player() {
     //一首歌循环
     const handleLoop = () => {
         audioRef.current.currentTime = 0
-        dispatch(changePlayingState(true))
-        setTimeout(() => {
-            audioRef.current.play()
-        })
+        playMusic()
     }
 
     //上一曲
@@ -118,9 +114,9 @@ export default function Player() {
                 setDuration(0)
                 dispatch(changePlayingState(false))
                 handleNext()
-            } else if(mode === 1) {
+            } else if (mode === 1) {
                 handleLoop()
-            } else if(mode === 2) {
+            } else if (mode === 2) {
                 let newArr = playList.sort(function () {
                     return Math.random() - 0.5
                 })
@@ -172,3 +168,5 @@ export default function Player() {
         </Container>
     )
 }
+
+export default memo(Player)

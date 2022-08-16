@@ -1,117 +1,163 @@
 import styled from "styled-components";
 
-export const  Container =styled.div`
+export const Container = styled.div`
     width: 100vw;
-    height: ${props => props.playerStatus === 0 ? '840px' : '780px'};
+    height: 100vh;
     overflow: hidden;
     font-family:  serif;
-    position: relative;
-    .ddd {
-        position: absolute;
-        top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f0f0f0;
+    .back {
+        position: relative;
         left: 20px;
-        z-index: 1;
+        top: 20px;
     }
+    
 `
-
 export const Bg = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 30vh;
+    background-color: red;
+    z-index: -2;
+    position: relative;
+    top: -24px;
     img {
         width: 100%;
         height: 100%;
     }
-
 `
-export const Card = styled.div`
-    width: 94%;
-    height: 30vh;
-    background-color: white;
-    position: relative;
-    top: -20px;
-    left: 12px;
-    border-radius: 10px;
-    margin-bottom: 0;
-    .content {
-        width: 100%;
-        height: calc(100% -100px) !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: translateY(70px);
-         .name {
-        font-size: 25px;
-        font-weight: 500;
-        margin-bottom: 10px;
-        }
-        .detail_1 {
-            width: 55%;
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 10px;
-            color: #bfbfbf;
-            font-weight: 300;
-            font-size: 14px;
-        }
-        .detail_2 {
-            width: 80%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-            font-weight: 300;
-           .icon {
-            position: static;
-           }
-            div {
-                padding: 5px;
-                border-radius: 10px;
-                border: 1px solid #d9d9d9;
-            }
-        }
-        button {
-            background-color: white;
-            border-radius: 30px;
-            padding: 10px 15px;
-            font-size: 15px;
-            font-weight: 300;
-            border: 1px solid #d9d9d9;
-        }
-    }
-   
-`
-
 export const Avatar = styled.div`
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 0 auto;
+    transform: translateY(20px);
     img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
     }
 `
+export const Content = styled.div`
+    transform: translateY(-120px);
+    z-index: 0;
+`
+export const Card_A = styled.div`
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .content {
+        height: 200px;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .name {
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .fans {
+            position: relative;
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            color: gray;
+        }
+        .data_a {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            .more {
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                line-height: 20px;
+                border: 1px solid #f0f0f0;
+                border-radius: 10px;
+                font-size: 10px;
+            }
+        }
+        .edit_material {
+            margin-top: 20px;
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            span:first-child{
+                font-size: 20px;
+                margin-left: 10px;
+            } 
+            .btn {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                line-height: 30px;
+                border: 1px solid #f0f0f0;
+                border-radius: 50%;
+                font-size: 10px;
+            }
+        }
+    }
+`
 export const Tabs = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 30px;
-    .link{
-        color: black;
-        transition: all;
-    }
-    .active {
-        border-bottom: 3px solid red;
-    }
+    margin-top: 20px;
+    margin-bottom: 20px;
+   a {
+    color: black;
+   }
+   .active {
+    border-bottom: 1px solid red;
+   }
+
 `
-export const Content = styled.div`
-    width: 90%;
-    margin: 0 auto;
-`
-export const Test = styled.div`
-    
+export const Card_B = styled.div`
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .title {
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        h1{
+            font-size: 25px;
+            font-weight: bold;
+        }
+        a {
+            border-radius: 10px;
+            border: 1px solid #f0f0f0;
+            color: black;
+        }
+    }
+    .content {
+        width: 90%;
+        height: 100px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding-left: 30px;
+        border-bottom: 1px solid #f0f0f0;
+
+    }
+    .more {
+        margin-top: 20px;
+        color: gray;
+    }
 `

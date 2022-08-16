@@ -16,9 +16,10 @@ const getSingerListRequest = (category, alpha, count) => {//按字母挑选歌�
 const getRankListRequest = () => {//排行版
     return api.get(`/toplist/detail`)
 }
-const getAlbumDetailRequest = (id) => {//详情页歌单
-    return api.get(`/playlist/detail?id=${id}`)
+const getAlbumDetailRequest = (id ,cookie) => {//详情页歌单
+    return api.get(`/playlist/detail?id=${id}&cookie=${cookie}`)
 }
+
 export const getSingerInfoRequest = id => { //歌手歌曲
     return api.get(`/artists?id=${id}`);
 };
@@ -53,6 +54,33 @@ export const checkLoginStatus = (cookie) => {//检查登录状态
         },
       })
 }
+
+export const getPhoneLogin = (phone ,password ) => {//手机号密码登录
+    return api({
+        url:'/login/cellphone',
+        method:'post',
+        params:{
+            phone ,
+            password 
+        }
+    })
+}
+export const getCAPTCHA = (phone) => { //获取验证码
+    return api.get(`/captcha/sent?phone=${phone}`)
+}
+
+export const getVerifyCAPTCHA = (phone,captcha) => {
+    return api({
+        url:'/captcha/verify',
+        method:'post',
+        params : {
+            phone,
+            captcha
+        }
+
+    })
+}
+
 export const getUserDetail = (id) => {//获取用户详细信息
     return api(`http://localhost:3000/user/detail?uid=${id}`)
 }
@@ -84,6 +112,7 @@ export const getUserSongList = (id) => {//用户歌单
 export const getUserPlaySongList = (id) => {//用户播放记录
     return api.get(`/user/record?uid=${id}&type=0`)
 }
+
 
 export {
     getBannerRequest,
