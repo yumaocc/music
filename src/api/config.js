@@ -1,8 +1,8 @@
 import axios from 'axios'
 
  const instance = axios.create({
-    // baseURL: "https://nodejs-amber.vercel.app",
-    baseURL: "http://localhost:3000",
+    baseURL: "https://nodejs-amber.vercel.app",
+    // baseURL: "http://localhost:3000",
 })
 // http://localhost:3000//user/playlist?uid=
 
